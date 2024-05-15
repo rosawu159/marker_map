@@ -34,7 +34,7 @@ markdown = """
 
 st.markdown(markdown)
 
-m = leafmap.Map(center = [50, 12], zoom = 7)
+m = leafmap.Map(center=[40, -100], zoom=4)
 
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
