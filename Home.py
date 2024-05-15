@@ -34,7 +34,7 @@ markdown = """
 
 st.markdown(markdown)
 
-m = leafmap.Map(minimap_control=True, center = [50, 12], zoom = 7)
+m = leafmap.Map(center = [50, 12], zoom = 7)
 
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
@@ -55,4 +55,4 @@ mood = st.text_input('請描述你的心情')
 if st.button('添加地標'):
     if location:
         print("?")
-m.to_streamlit()
+m.to_streamlit(height="400px", width="800px")
