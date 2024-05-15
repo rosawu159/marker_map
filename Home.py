@@ -39,7 +39,7 @@ m = leafmap.Map(minimap_control=True, zoom=2)
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
 
-m.setZoom(3)
+m.fitBounds(markerGroup.getBounds());
 m.add_geojson(regions, layer_name="US Regions")
 m.add_points_from_xy(
     cities,
