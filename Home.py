@@ -55,4 +55,4 @@ mood = st.text_input('請描述你的心情')
 if st.button('添加地標'):
     if location:
         print("?")
-m.to_streamlit(height=400, width=800)
+m.to_streamlit(height=350, width=800)
