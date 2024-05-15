@@ -35,7 +35,7 @@ markdown = """
 st.markdown(markdown)
 
 m = leafmap.Map(minimap_control=True)
-m.add_basemap("OpenTopoMap")
+
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
 
