@@ -36,12 +36,23 @@ st.markdown(markdown)
 
 m = leafmap.Map(minimap_control=True)
 m.add_basemap("OpenTopoMap")
+cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
+regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
+
+m.add_geojson(regions, layer_name="US Regions")
+m.add_points_from_xy(
+    cities,
+    x="longitude",
+    y="latitude",
+    color_column="region",
+    icon_names=["gear", "map", "leaf", "globe"],
+    spin=True,
+    add_legend=True,
+)
 
 location = st.text_input('請輸入地標坐標 (格式如 40,-100)')
 mood = st.text_input('請描述你的心情')
 if st.button('添加地標'):
     if location:
-        location = [float(coord) for coord in location.split(',')]
-        add_marker(m, location, mood)
-        st.success('地標和心情已添加到地圖！')
+        print("?")
 m.to_streamlit(height=500)
