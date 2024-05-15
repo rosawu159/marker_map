@@ -10,7 +10,7 @@ This is about
 
 st.sidebar.title("About")
 st.sidebar.info(markdown)
-logo = "https://cdn-icons-png.flaticon.com/512/1911/1911866.png"
+logo = "https://cdn-icons-png.flaticon.com/512/3474/3474756.png"
 st.sidebar.image(logo)
 
 # Customize page title
