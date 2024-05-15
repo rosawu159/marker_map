@@ -34,12 +34,11 @@ markdown = """
 
 st.markdown(markdown)
 
-m = leafmap.Map(minimap_control=True, zoom=2)
+m = leafmap.Map(minimap_control=True, center = [50, 12], zoom = 7)
 
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
 
-m.setView(zoom=2);
 m.add_geojson(regions, layer_name="US Regions")
 m.add_points_from_xy(
     cities,
