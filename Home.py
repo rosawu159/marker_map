@@ -36,4 +36,12 @@ st.markdown(markdown)
 
 m = leafmap.Map(minimap_control=True)
 m.add_basemap("OpenTopoMap")
+
+location = st.text_input('請輸入地標坐標 (格式如 40,-100)')
+mood = st.text_input('請描述你的心情')
+if st.button('添加地標'):
+    if location:
+        location = [float(coord) for coord in location.split(',')]
+        add_marker(m, location, mood)
+        st.success('地標和心情已添加到地圖！')
 m.to_streamlit(height=500)
