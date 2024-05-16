@@ -12,7 +12,6 @@ uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster
 def init_connection():
     client = MongoClient(uri, server_api=ServerApi('1'))
     try:
-        client = init_connection()
         client.admin.command('ping')
         print("Pinged your deployment. You successfully connected to MongoDB!")
         return client
