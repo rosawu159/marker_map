@@ -3,3 +3,4 @@ geopandas
 leafmap
 owslib
 streamlit
+mysql-connector-python
