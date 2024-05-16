@@ -13,7 +13,7 @@ def init_connection():
     
     st.info(connection_string)
     st.info(st.secrets['connection_string'])
-    return MongoClient(st.secrets['connection_string'], server_api=ServerApi('1'))
+    return MongoClient(uri, server_api=ServerApi('1'))
         
 client = init_connection()
 
