@@ -61,9 +61,8 @@ markdown = """
 
 st.markdown(markdown)
 
-coordinates = st.text_input('請輸入地標坐標 (格式如 40,-100)')
-mood = st.text_input('請描述你的心情')
-if st.button('添加地標'):
+mood = st.text_area('請描述你的心情')
+if st.button('添加心情'):
     if coordinates:
         lat, lon = [float(coord) for coord in coordinates.split(',')]
         add_landmark_to_db(lat, lon, mood)
