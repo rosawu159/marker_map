@@ -15,7 +15,7 @@ def init_connection():
 client = init_connection()
 
 def get_data():
-    db = client.testdb
+    db = client.get_database('testdb')
     items = db.testcollection.find()
     items = list(items)
     return items
