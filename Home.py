@@ -11,20 +11,19 @@ uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster
 @st.cache_resource
 def init_connection():
     client = MongoClient(uri, server_api=ServerApi('1'))
-    return client
-
-try:
-    client = init_connection()
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+    try:
+        client = init_connection()
+        client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+        return client
+    except Exception as e:
+        print(e)
 
 @st.cache_data(ttl=600)
-def get_db():
+def get_data():
     db = client.admin
     items = db.mycollection.find()
-    items = list(items)  # make hashable for st.cache_data
+    items = list(items)
     return items
 
 # 将地标添加到数据库
@@ -94,4 +93,4 @@ m.add_points_from_xy(
     add_legend=True,
 )
 m.to_streamlit(height=320)
-
+items = get_data()
