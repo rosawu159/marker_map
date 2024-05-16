@@ -10,7 +10,7 @@ client = init_connection()
 
 @st.cache_data(ttl=600)
 def get_db():
-    db = client.testdb
+    db = client.admin
     items = db.mycollection.find()
     return items
 
