@@ -6,12 +6,12 @@ import mysql.connector
 
 # 数据库连接配置
 def connect_db():
-    return mysql.connector.connect(
-        host="your_host",
-        user="your_username",
-        password="your_password",
-        database="your_database"
-    )
+    return mysql.connector.connect( host="localhost",
+                                    port="3306",
+                                    user="root",
+                                    passwd="",
+                                    db="iam_db"
+                                  )
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, mood):
