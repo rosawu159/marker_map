@@ -6,7 +6,7 @@ st.set_page_config(layout="wide")
 
 @st.cache_resource
 def init_connection():
-    return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@st.secrets.cluster_name.zskuvse.mongodb.net/?appName=mongosh+2.2.5")
+    return MongoClient("mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@cluster0.zskuvse.mongodb.net/?appName=mongosh+2.2.5")
 
 client = init_connection()
 
