@@ -2,6 +2,7 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 import pymongo
 from folium import Icon
+st.set_page_config(layout="wide")
 
 @st.cache_resource
 def init_connection():
@@ -31,7 +32,6 @@ def init_map():
     m = leafmap.Map(center=[40, -100], zoom=4)
     return m
 
-st.set_page_config(layout="wide")
 
 # Customize the sidebar
 markdown = """
