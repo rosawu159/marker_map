@@ -2,20 +2,30 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 from pymongo import MongoClient
 from folium import Icon
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 st.set_page_config(layout="wide")
 
-#@st.cache_resource
-#def init_connection():
-#    return MongoClient("mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-#
-#client = init_connection()
-#
-#@st.cache_data(ttl=600)
-#def get_db():
-#    db = client.admin
-#    items = db.mycollection.find()
-#    items = list(items)  # make hashable for st.cache_data
-#    return items
+uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+@st.cache_resource
+def init_connection():
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    return client
+
+try:
+    client = init_connection()
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+@st.cache_data(ttl=600)
+def get_db():
+    db = client.admin
+    items = db.mycollection.find()
+    items = list(items)  # make hashable for st.cache_data
+    return items
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, mood):
