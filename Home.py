@@ -1,6 +1,7 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 from pymongo import MongoClient
+from folium import Icon
 
 @st.cache_resource
 def init_connection():
@@ -77,6 +78,7 @@ landmarks = get_landmarks_from_db()
 for item in landmarks:
     st.write(f"{item['latitude']} has a :{item['mood']}:")
 for landmark in landmarks:
-    m.add_marker(location=(landmark['latitude'], landmark['longitude']), popup=f'心情: {landmark['mood']}')
+    icon = Icon(icon="heart", color="red", prefix="fa") 
+    m.add_marker(location=(landmark['latitude'], landmark['longitude']), icon=icon)
 m.to_streamlit(height=320)
 
