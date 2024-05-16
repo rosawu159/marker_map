@@ -1,6 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
-import pymongo
+from pymongo import MongoClient
 from folium import Icon
 st.set_page_config(layout="wide")
 
