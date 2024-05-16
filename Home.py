@@ -9,7 +9,7 @@ st.set_page_config(layout="wide")
 uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 def init_connection():
-    connection_string = st.secrets["connection_string"]
+    connection_string = st.secrets['connection_string']
     mClient = MongoClient(connection_string, server_api=ServerApi('1'))
     return mClient
         
