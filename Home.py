@@ -10,20 +10,14 @@ uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster
 
 @st.cache_resource
 def init_connection():
-    client = MongoClient(uri, server_api=ServerApi('1'))
-    try:
-        client.admin.command('ping')
-        print("Pinged your deployment. You successfully connected to MongoDB!")
-        return client
-    except Exception as e:
-        print(e)
+    mClient = MongoClient(uri, server_api=ServerApi('1'))
+    return mClient
         
 client = init_connection()
 
 @st.cache_data(ttl=600)
 def get_data():
-    
-    db = client.admin
+    db = client.testdb
     items = db.mycollection.find()
     items = list(items)
     return items
