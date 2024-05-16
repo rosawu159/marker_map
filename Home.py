@@ -17,9 +17,12 @@ def init_connection():
         return client
     except Exception as e:
         print(e)
+        
+client = init_connection()
 
 @st.cache_data(ttl=600)
 def get_data():
+    
     db = client.admin
     items = db.mycollection.find()
     items = list(items)
