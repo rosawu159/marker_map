@@ -1,6 +1,37 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 import os
+import mysql.connector
+
+
+# 数据库连接配置
+def connect_db():
+    return mysql.connector.connect(
+        host="your_host",
+        user="your_username",
+        password="your_password",
+        database="your_database"
+    )
+
+# 将地标添加到数据库
+def add_landmark_to_db(latitude, longitude, mood):
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "INSERT INTO landmarks (latitude, longitude, mood) VALUES (%s, %s, %s)"
+    cursor.execute(query, (latitude, longitude, mood))
+    conn.commit()
+    conn.close()
+
+# 从数据库获取所有地标
+def get_landmarks_from_db():
+    conn = connect_db()
+    cursor = conn.cursor()
+    query = "SELECT latitude, longitude, mood FROM landmarks"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
 st.set_page_config(layout="wide")
 
 # Customize the sidebar
@@ -50,11 +81,20 @@ m.add_points_from_xy(
     add_legend=True,
 )
 
-location = st.text_input('請輸入地標坐標 (格式如 40,-100)')
+# Streamlit 互動組件
+coordinates = st.text_input('請輸入地標坐標 (格式如 40,-100)')
 mood = st.text_input('請描述你的心情')
 if st.button('添加地標'):
-    if location:
-        print("?")
+    if coordinates:
+        lat, lon = [float(coord) for coord in coordinates.split(',')]
+        add_landmark_to_db(lat, lon, mood)
+        st.success('地標和心情已保存到数据库！')
+landmarks = get_landmarks_from_db()
+for lat, lon, mood in landmarks:
+    m.add_marker(location=(lat, lon), popup=f'心情: {mood}')
+
+
+
 m.to_streamlit(height=320)
 
 
