@@ -4,18 +4,18 @@ from pymongo import MongoClient
 from folium import Icon
 st.set_page_config(layout="wide")
 
-@st.cache_resource
-def init_connection():
-    return MongoClient("mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-
-client = init_connection()
-
-@st.cache_data(ttl=600)
-def get_db():
-    db = client.admin
-    items = db.mycollection.find()
-    items = list(items)  # make hashable for st.cache_data
-    return items
+#@st.cache_resource
+#def init_connection():
+#    return MongoClient("mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+#
+#client = init_connection()
+#
+#@st.cache_data(ttl=600)
+#def get_db():
+#    db = client.admin
+#    items = db.mycollection.find()
+#    items = list(items)  # make hashable for st.cache_data
+#    return items
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, mood):
