@@ -12,6 +12,7 @@ client = init_connection()
 def get_db():
     db = client.admin
     items = db.mycollection.find()
+    items = list(items)  # make hashable for st.cache_data
     return items
 
 # 将地标添加到数据库
@@ -73,6 +74,8 @@ if st.button('添加地標'):
 # 显示地图和所有数据库中的地标
 m = init_map()
 landmarks = get_landmarks_from_db()
+for item in landmarks:
+    st.write(f"{item['latitude']} has a :{item['mood']}:")
 for landmark in landmarks:
     m.add_marker(location=(landmark['latitude'], landmark['longitude']), popup=f'心情: {landmark['mood']}')
 m.to_streamlit(height=320)
