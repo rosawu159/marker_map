@@ -93,4 +93,4 @@ m.add_points_from_xy(
 m.to_streamlit(height=320)
 items = get_data()
 for i in items:
-    print(i)
+    st.info(i)
