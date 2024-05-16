@@ -8,8 +8,8 @@ import mysql.connector
 def connect_db():
     return mysql.connector.connect( host="localhost",
                                     port="3306",
-                                    user="root",
-                                    passwd="",
+                                    user=st.secrets["db_username"],
+                                    passwd=st.secrets["db_password"],
                                     db="iam_db"
                                   )
 
