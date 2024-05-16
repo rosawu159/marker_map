@@ -6,7 +6,7 @@ st.set_page_config(layout="wide")
 
 @st.cache_resource
 def init_connection():
-    return pymongo.MongoClient(**st.secrets["mongo"])
+    return MongoClient('122.99.24.233/32')
 
 client = init_connection()
 
