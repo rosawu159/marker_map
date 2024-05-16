@@ -10,6 +10,7 @@ uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster
 
 def init_connection():
     connection_string = st.secrets['connection_string']
+    print(connection_string)
     mClient = MongoClient(connection_string, server_api=ServerApi('1'))
     return mClient
         
