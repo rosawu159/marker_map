@@ -35,7 +35,7 @@ def init_map():
 
 # Customize the sidebar
 markdown = """
-This is about
+This is a daily.
 """
 
 st.sidebar.title("About")
@@ -44,15 +44,15 @@ logo = "https://cdn-icons-png.flaticon.com/512/3286/3286370.png"
 st.sidebar.image(logo)
 
 # Customize page title
-st.title("Streamlit for Geospatial Applications")
+st.title("將你的心情轉成旅遊計畫！")
 
 st.markdown(
     """
-    This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and [leafmap](https://leafmap.org). It is an open-source project and you are very welcome to contribute to the [GitHub repository](https://github.com/opengeos/streamlit-map-template).
+    不管是什麼樣的心情，記錄下來，可以給你對應的旅遊計畫喔～
     """
 )
 
-st.header("Instructions")
+st.header("寫下你的日記")
 
 markdown = """
 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫
