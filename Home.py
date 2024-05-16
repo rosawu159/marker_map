@@ -14,8 +14,6 @@ def init_connection():
         
 client = init_connection()
 
-
-@st.experimental_memo(ttl=60)
 def get_data():
     db = client.get_database('testdb')
     items = db.testcollection.find()
