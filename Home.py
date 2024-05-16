@@ -1,36 +1,27 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
-import os
-import mysql.connector
-
+from pymongo import MongoClient
 
 # 数据库连接配置
-def connect_db():
-    return mysql.connector.connect( host="localhost",
-                                    port="3306",
-                                    user=st.secrets["db_username"],
-                                    passwd=st.secrets["db_password"],
-                                    db="iam_db"
-                                  )
+def get_db():
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client.map_app
+    return db.landmarks
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, mood):
-    conn = connect_db()
-    cursor = conn.cursor()
-    query = "INSERT INTO landmarks (latitude, longitude, mood) VALUES (%s, %s, %s)"
-    cursor.execute(query, (latitude, longitude, mood))
-    conn.commit()
-    conn.close()
+    db = get_db()
+    db.insert_one({'latitude': latitude, 'longitude': longitude, 'mood': mood})
 
 # 从数据库获取所有地标
 def get_landmarks_from_db():
-    conn = connect_db()
-    cursor = conn.cursor()
-    query = "SELECT latitude, longitude, mood FROM landmarks"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    conn.close()
-    return result
+    db = get_db()
+    return list(db.find({}, {'_id': 0, 'latitude': 1, 'longitude': 1, 'mood': 1}))
+
+# 初始化地图
+def init_map():
+    m = leafmap.Map(center=[40, -100], zoom=4)
+    return m
 
 st.set_page_config(layout="wide")
 
@@ -65,23 +56,6 @@ markdown = """
 
 st.markdown(markdown)
 
-m = leafmap.Map(center=[40, -100], zoom=4)
-
-cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
-regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
-
-m.add_geojson(regions, layer_name="US Regions")
-m.add_points_from_xy(
-    cities,
-    x="longitude",
-    y="latitude",
-    color_column="region",
-    icon_names=["gear", "map", "leaf", "globe"],
-    spin=True,
-    add_legend=True,
-)
-
-# Streamlit 互動組件
 coordinates = st.text_input('請輸入地標坐標 (格式如 40,-100)')
 mood = st.text_input('請描述你的心情')
 if st.button('添加地標'):
@@ -89,21 +63,11 @@ if st.button('添加地標'):
         lat, lon = [float(coord) for coord in coordinates.split(',')]
         add_landmark_to_db(lat, lon, mood)
         st.success('地標和心情已保存到数据库！')
+
+# 显示地图和所有数据库中的地标
+m = init_map()
 landmarks = get_landmarks_from_db()
-for lat, lon, mood in landmarks:
-    m.add_marker(location=(lat, lon), popup=f'心情: {mood}')
-
-
-
+for landmark in landmarks:
+    m.add_marker(location=(landmark['latitude'], landmark['longitude']), popup=f'心情: {landmark['mood']}')
 m.to_streamlit(height=320)
 
-
-
-# Everything is accessible via the st.secrets dict:
-st.write("My cool secrets:", st.secrets["my_cool_secrets"]["things_i_like"])
-
-# And the root-level secrets are also accessible as environment variables:
-st.write(
-    "Has environment variables been set:",
-    os.environ["db_username"] == st.secrets["db_username"],
-)
