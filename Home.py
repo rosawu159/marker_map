@@ -16,7 +16,7 @@ client = init_connection()
 
 def get_data():
     db = client.testdb
-    items = db.mycollection.find()
+    items = db.testcollection.find()
     items = list(items)
     return items
 
