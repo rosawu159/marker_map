@@ -71,11 +71,18 @@ if st.button('添加地標'):
 
 # 显示地图和所有数据库中的地标
 m = init_map()
-#landmarks = get_landmarks_from_db()
-for item in landmarks:
-    st.write(f"{item['latitude']} has a :{item['mood']}:")
-for landmark in landmarks:
-    icon = Icon(icon="heart", color="red", prefix="fa") 
-    m.add_marker(location=(landmark['latitude'], landmark['longitude']), icon=icon)
+cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
+        regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
+
+        m.add_geojson(regions, layer_name="US Regions")
+        m.add_points_from_xy(
+            cities,
+            x="longitude",
+            y="latitude",
+            color_column="region",
+            icon_names=["gear", "map", "leaf", "globe"],
+            spin=True,
+            add_legend=True,
+        )
 m.to_streamlit(height=320)
 
