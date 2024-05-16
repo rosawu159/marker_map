@@ -2,11 +2,17 @@ import streamlit as st
 import leafmap.foliumap as leafmap
 from pymongo import MongoClient
 
-# 数据库连接配置
+@st.cache_resource
+def init_connection():
+    return pymongo.MongoClient(**st.secrets["mongo"])
+
+client = init_connection()
+
+@st.cache_data(ttl=600)
 def get_db():
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client.map_app
-    return db.landmarks
+    db = client.testdb
+    items = db.mycollection.find()
+    return items
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, mood):
