@@ -6,14 +6,9 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 st.set_page_config(layout="wide")
 
-uri = "mongodb+srv://st.secrets['db_username']:st.secrets['db_pswd']@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 def init_connection():
     connection_string = "mongodb+srv://"+st.secrets['db_username']+":"+st.secrets['db_pswd']+"@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    
-    st.info(connection_string)
-    st.info(st.secrets['connection_string'])
-    st.info(uri)
     return MongoClient(connection_string, server_api=ServerApi('1'))
         
 client = init_connection()
