@@ -8,14 +8,12 @@ st.set_page_config(layout="wide")
 
 uri = "mongodb+srv://{st.secrets['db_username']}:{st.secrets['db_pswd']}@cluster0.zskuvse.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-@st.cache_resource
 def init_connection():
     mClient = MongoClient(uri, server_api=ServerApi('1'))
     return mClient
         
 client = init_connection()
 
-@st.cache_data(ttl=600)
 def get_data():
     db = client.testdb
     items = db.mycollection.find()
