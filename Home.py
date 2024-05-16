@@ -74,7 +74,7 @@ if st.button('添加地標'):
 
 # 显示地图和所有数据库中的地标
 m = init_map()
-landmarks = get_landmarks_from_db()
+#landmarks = get_landmarks_from_db()
 for item in landmarks:
     st.write(f"{item['latitude']} has a :{item['mood']}:")
 for landmark in landmarks:
