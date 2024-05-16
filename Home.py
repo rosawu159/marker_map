@@ -44,7 +44,7 @@ logo = "https://cdn-icons-png.flaticon.com/512/3286/3286370.png"
 st.sidebar.image(logo)
 
 # Customize page title
-st.title("將你的心情轉成旅遊計畫！")
+st.title("跟 者 日 記 旅 遊 去！")
 
 st.markdown(
     """
