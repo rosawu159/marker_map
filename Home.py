@@ -1,6 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
-from pymongo
+import pymongo
 from folium import Icon
 
 @st.cache_resource
