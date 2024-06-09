@@ -35,9 +35,9 @@ def get_data():
     return items
 
 # 将地标添加到数据库
-def add_landmark_to_db(latitude, longitude, mood):
+def add_landmark_to_db(latitude, longitude, city, country):
     db = get_db()
-    db.insert_one({'latitude': latitude, 'longitude': longitude, 'mood': mood})
+    db.insert_one({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
 
 # 从数据库获取所有地标
 def get_landmarks_from_db():
@@ -89,14 +89,10 @@ if st.button('添加心情'):
   st.info(result)
   data = json.loads(result)
 
-  st.info(data.get('city_name'))
   st.info(data['city_name'])
-  st.info(result['comfort_and_encouragement'])
-  st.info(result['latitude'])
-  st.info(result['longitude'])
-  st.info(result['reason'])
-  # lat, lon = [float(coord) for coord in coordinates.split(',')]
-  # add_landmark_to_db(lat, lon, mood)
+  st.info(data['comfort_and_encouragement'])
+  st.info(data['reason'])
+  add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
 
 # 显示地图和所有数据库中的地标
