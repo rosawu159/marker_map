@@ -78,14 +78,13 @@ if st.button('添加心情'):
         "我能感受到你這幾天承受了很多壓力。工作上的忙碌和疲憊有時候真的會讓人感到難以承受。但是請相信，這一切都會過去，你是如此堅強和有能力的人。給自己一點時間和空間，好好照顧自己。我建議你去[旅遊地點]旅行，那裡的[特點]非常適合放鬆和恢復精力。希望這次旅行能夠給你帶來平靜和快樂。加油，你一定可以的！"
         
         請按照json格式輸出：
-        {
-          "comfort_and_encouragement": 你的安慰和鼓勵文字,
-          "city_name": 推薦的旅遊城市,
-          "country_name": "這個城市的國家",
-          "latitude": "這個城市的經度",
-          "longitude": "這個城市的緯度",
-          "reason": "這個城市的推薦原因"
-        }
+        comfort_and_encouragement: 你的安慰和鼓勵文字,
+        city_name: 推薦的旅遊城市,
+        country_name: "這個城市的國家,
+        latitude: 這個城市的經度,
+        longitude: 這個城市的緯度,
+        reason: 這個城市的推薦原因
+
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
   st.info(result)
