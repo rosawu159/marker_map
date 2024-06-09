@@ -26,8 +26,7 @@ def init_connection():
     return MongoClient(connection_string, server_api=ServerApi('1'))
         
 client = init_connection()
-db = client.get_database('testdb')
-collection = db['testCollection']
+
 
 
 def get_data():
@@ -37,6 +36,8 @@ def get_data():
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, city, country):
+    db = client.get_database('testdb')
+    collection = db['testCollection']
     collection.insert({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
 
 # 从数据库获取所有地标
