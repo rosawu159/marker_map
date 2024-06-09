@@ -39,7 +39,7 @@ def get_data():
 def add_landmark_to_db(latitude, longitude, city, country):
     db = client.get_database('testdb')
     collection = db['testCollection']
-    collection.insert({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
+    db.collection.insert({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
 
 # 从数据库获取所有地标
 def get_landmarks_from_db():
