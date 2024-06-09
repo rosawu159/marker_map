@@ -35,7 +35,7 @@ def get_data():
 
 # 将地标添加到数据库
 def add_landmark_to_db(latitude, longitude, city, country):
-    db.insert_one({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
+    db.testCollection.insertOne({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
 
 # 从数据库获取所有地标
 def get_landmarks_from_db():
