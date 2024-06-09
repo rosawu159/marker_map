@@ -37,9 +37,7 @@ def init_map():
 
 
 # Customize the sidebar
-markdown = """
-This is a daily.
-"""
+markdown = """ This is a travel daily. """
 
 st.sidebar.title("About")
 st.sidebar.info(markdown)
@@ -48,28 +46,14 @@ st.sidebar.image(logo)
 
 # Customize page title
 st.title("跟 者 日 記 旅 遊 去！")
-
-st.markdown(
-    """
-    不管是什麼樣的心情，記錄下來，可以給你對應的旅遊計畫喔～
-    """
-)
-
-st.header("寫下你的日記")
-
-markdown = """
-1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫
-
-"""
-
-st.markdown(markdown)
-
+st.markdown(""" 不管是什麼樣的心情，記錄下來，可以給你對應的旅遊計畫喔～ """)
+st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
 if st.button('添加心情'):
     if coordinates:
         lat, lon = [float(coord) for coord in coordinates.split(',')]
         add_landmark_to_db(lat, lon, mood)
-        st.success('地標和心情已保存到数据库！')
+        st.success('地標和心情已保存！')
 
 # 显示地图和所有数据库中的地标
 m = init_map()
@@ -89,4 +73,4 @@ m.add_points_from_xy(
 m.to_streamlit(height=320)
 items = get_data()
 for i in items:
-    st.info(i)
+    st.info(i['latitude'])
