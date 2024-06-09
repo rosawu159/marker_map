@@ -9,7 +9,7 @@ import requests
 import re
 
 st.set_page_config(layout="wide")
-API=['API_KEY']
+API=st.secrets['API_KEY']
 
 def get_completion(messages, model="gpt-3.5-turbo", temperature=0, max_tokens=1000):
   payload = { "model": model, "temperature": temperature, "messages": messages, "max_tokens": max_tokens }
