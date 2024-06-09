@@ -63,11 +63,27 @@ st.title("跟 者 日 記 旅 遊 去！")
 st.markdown(""" 不管是什麼樣的心情，記錄下來，可以給你對應的旅遊計畫喔～ """)
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
+
 if st.button('添加心情'):
-    if coordinates:
-        lat, lon = [float(coord) for coord in coordinates.split(',')]
-        add_landmark_to_db(lat, lon, mood)
-        st.success('地標和心情已保存！')
+  prompt= f'''
+        請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。
+
+        日記內容：
+        {mood}
+
+        請生成的文字包含以下要素：
+        1. 安慰和鼓勵：對日記中表達的負面情緒進行安慰和鼓勵。
+        2. 旅遊推薦：根據日記中提到的需要放鬆，提供一個合適的旅遊城市推薦，並給我城市的名字和對應的latitude、longitude、。
+        
+        生成的文字示例：
+        "我能感受到你這幾天承受了很多壓力。工作上的忙碌和疲憊有時候真的會讓人感到難以承受。但是請相信，這一切都會過去，你是如此堅強和有能力的人。給自己一點時間和空間，好好照顧自己。我建議你去[旅遊地點]旅行，那裡的[特點]非常適合放鬆和恢復精力。希望這次旅行能夠給你帶來平靜和快樂。加油，你一定可以的！"
+        
+        現在請根據上述要求，生成相應的文字。謝謝！'''
+  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+  st.info(result)
+  # lat, lon = [float(coord) for coord in coordinates.split(',')]
+  # add_landmark_to_db(lat, lon, mood)
+  st.success('地標和心情已保存！')
 
 # 显示地图和所有数据库中的地标
 m = init_map()
@@ -90,19 +106,3 @@ for i in items:
     st.info(i.get('latitude'))
     st.info(i)
 
-prompt= f'''
-        請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。
-
-        日記內容：
-        {mood}
-
-        請生成的文字包含以下要素：
-        1. 安慰和鼓勵：對日記中表達的負面情緒進行安慰和鼓勵。
-        2. 旅遊推薦：根據日記中提到的需要放鬆，提供一個合適的旅遊城市推薦，並給我城市的名字和對應的latitude、longitude、。
-        
-        生成的文字示例：
-        "我能感受到你這幾天承受了很多壓力。工作上的忙碌和疲憊有時候真的會讓人感到難以承受。但是請相信，這一切都會過去，你是如此堅強和有能力的人。給自己一點時間和空間，好好照顧自己。我建議你去[旅遊地點]旅行，那裡的[特點]非常適合放鬆和恢復精力。希望這次旅行能夠給你帶來平靜和快樂。加油，你一定可以的！"
-        
-        現在請根據上述要求，生成相應的文字。謝謝！'''
-result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
-st.info(result)
