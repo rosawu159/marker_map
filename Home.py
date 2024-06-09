@@ -89,7 +89,7 @@ if st.button('添加心情'):
             "longitude": "這個城市的緯度",
             "reason": "這個城市的推薦原因"
           }
-        }'''
+        }```
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
   st.info(result)
