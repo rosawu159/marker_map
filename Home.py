@@ -4,6 +4,8 @@ from pymongo import MongoClient
 from folium import Icon
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import requests
+
 st.set_page_config(layout="wide")
 API=['API_KEY']
 
