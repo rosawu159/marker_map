@@ -65,8 +65,7 @@ st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推�
 mood = st.text_area('請描述你的心情')
 
 if st.button('添加心情'):
-  prompt= f'''
-        請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。
+  prompt= f'''請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。
 
         日記內容：
         {mood}
@@ -81,8 +80,8 @@ if st.button('添加心情'):
         請按照以下格式輸出：
         ```json
         {
-          "comfort_and_encouragement": "你的安慰和鼓勵文字",
-          "city_name": "推薦的旅遊城市",
+          "comfort_and_encouragement": 你的安慰和鼓勵文字,
+          "city_name": 推薦的旅遊城市,
           "country_name": "這個城市的國家",
           "latitude": "這個城市的經度",
           "longitude": "這個城市的緯度",
