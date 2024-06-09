@@ -30,6 +30,7 @@ client = init_connection()
 
 
 def get_data():
+    db = client.get_database('testdb')
     items = db.testCollection.find()
     items = list(items)
     return items
