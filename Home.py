@@ -87,7 +87,7 @@ if st.button('添加心情'):
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
   st.info(result)
-  data = json.loads(output_string)
+  data = json.loads(result)
 
   st.info(data.get('city_name'))
   st.info(data['city_name'])
