@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 
 def get_completion(messages, model="gpt-3.5-turbo", temperature=0, max_tokens=1000):
   payload = { "model": model, "temperature": temperature, "messages": messages, "max_tokens": max_tokens }
-  headers = { "Authorization": f'Bearer {API_KEY}', "Content-Type": "application/json" }
+  headers = { "Authorization": f'Bearer ['API_KEY']', "Content-Type": "application/json" }
   response = requests.post('https://api.openai.com/v1/chat/completions', headers = headers, data = json.dumps(payload) )
   obj = json.loads(response.text)
   if response.status_code == 200 :
