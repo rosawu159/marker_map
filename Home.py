@@ -84,11 +84,13 @@ if st.button('添加心情'):
         latitude: 這個城市的經度,
         longitude: 這個城市的緯度,
         reason: 這個城市的推薦原因
-
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
-  st.info(result)
   st.info(result['city_name'])
+  st.info(result['comfort_and_encouragement'])
+  st.info(result['latitude'])
+  st.info(result['longitude'])
+  st.info(result['reason'])
   # lat, lon = [float(coord) for coord in coordinates.split(',')]
   # add_landmark_to_db(lat, lon, mood)
   st.success('地標和心情已保存！')
