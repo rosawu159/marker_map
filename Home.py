@@ -86,6 +86,8 @@ if st.button('添加心情'):
         reason: 這個城市的推薦原因
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+  st.info(result)
+  st.info(result.get('city_name'))
   st.info(result['city_name'])
   st.info(result['comfort_and_encouragement'])
   st.info(result['latitude'])
