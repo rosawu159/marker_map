@@ -39,7 +39,9 @@ def get_data():
 def add_landmark_to_db(latitude, longitude, city, country):
     db = client.get_database('testdb')
     try:
-        db.testCollection.insert({'latitude': latitude, 'longitude': longitude, 'city': city, 'country': country})
+        collection = client['testdb']['testCollection']
+        collection.insert_one({"latitude": latitude, "longitude": longitude, "city": city, "country": country})
+        db.testCollection.insert({"latitude": latitude, "longitude": longitude, "city": city, "country": country})
     except Exception as e:
         st.markdown(e)
 
