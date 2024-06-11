@@ -175,7 +175,7 @@ if st.button('添加心情'):
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
   data_city = data['city_name']
-    prompt= f'''請根據{data_city}給我一個推薦的景點
+  prompt= f'''請根據{data_city}給我一個推薦的景點
         
         請按照json格式輸出：
         attraction_name: 推薦景點
