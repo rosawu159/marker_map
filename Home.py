@@ -108,7 +108,6 @@ cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/
 
 #m.add_geojson(regions, layer_name="US Regions")
 
-m.to_streamlit(height=320)
 items = get_data()
 df = pd.DataFrame(items)
 st.info(df.head())
