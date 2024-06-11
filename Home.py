@@ -18,11 +18,11 @@ from io import BytesIO
 def create_postcard(data_city):
     getpic = False
     while not getpic:
-        prompt= f'''去www.tripadvisor.com給我關於{data_city}的一個知名景點，選完後去unsplash.com/photos回傳我景點的照片連結
+        prompt= f'''給我關於{data_city}的一個知名景點，並去unsplash.com/photos回傳我該景點的照片連結
             
                     請按照json格式輸出：
                     attraction_name: 景點名稱,
-                    attraction_link: 景點的照片連結
+                    attraction_link: 照片連結
                   '''
         result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
         st.info(result)
