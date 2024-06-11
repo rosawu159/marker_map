@@ -7,6 +7,8 @@ from pymongo.server_api import ServerApi
 import json
 import requests
 import re
+import pandas as pd
+
 
 st.set_page_config(layout="wide")
 API=st.secrets['api_key']
