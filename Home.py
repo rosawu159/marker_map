@@ -43,7 +43,9 @@ def create_postcard(attraction_name):
     font = ImageFont.truetype(font_path, 24)
 
     # Calculate text size and position
-    text_width, text_height = draw.textsize(quote, font=font)
+    text_bbox = draw.textbbox((0, 0), quote, font=font)
+    text_width = text_bbox[2] - text_bbox[0]
+    text_height = text_bbox[3] - text_bbox[1]
     text_x = (quote_image.shape[1] - text_width) // 2
     text_y = (quote_image.shape[0] - text_height) // 2
 
@@ -57,6 +59,7 @@ def create_postcard(attraction_name):
     postcard = np.hstack((image, quote_image))
 
     return postcard
+
 
 st.set_page_config(layout="wide")
 API=st.secrets['api_key']
