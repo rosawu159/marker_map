@@ -130,6 +130,7 @@ m.add_points_from_xy(
 )
 m.to_streamlit(height=320)
 cities = df.get('city')
+st.info(cities)
 
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
@@ -160,8 +161,8 @@ if st.button('添加心情'):
   st.info(data['reason'])
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
-  city = data['city_name']
-  prompt= f'''去www.tripadvisor.com給我關於{city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
+  data_city = data['city_name']
+  prompt= f'''去www.tripadvisor.com給我關於{data_city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
         
         請按照json格式輸出：
         attraction_name: 景點名稱,
