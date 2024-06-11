@@ -29,6 +29,7 @@ def create_postcard(attraction_name):
         st.info(data['attraction_link'])
         # Load the image from the URL
         image_url = data['attraction_link']
+        t_url = 'https://images.unsplash.com/photo-1629793815862-723ed95c2363?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w2MjE2NDR8MHwxfHNlYXJjaHwxfHxQYXJjLUd1ZWxsfGVufDB8fHx8MTcxODEzOTIyNnww\u0026ixlib=rb-4.0.3\u0026q=85'
         response = requests.get(image_url)
         if response.status_code == 200:
             image = Image.open(BytesIO(response.content))
