@@ -120,4 +120,4 @@ m.add_points_from_xy(
     spin=True,
     add_legend=True,
 )
-
+m.to_streamlit(height=320)
