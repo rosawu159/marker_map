@@ -33,7 +33,7 @@ client = init_connection()
 
 def get_data():
     db = client.get_database('testdb')
-    items = db.testCollection.find()
+    items = db.aCollection.find()
     items = list(items)
     return items
 
@@ -41,9 +41,8 @@ def get_data():
 def add_landmark_to_db(latitude, longitude, city, country):
     db = client.get_database('testdb')
     try:
-        collection = client['testdb']['testCollection']
+        collection = client['testdb']['aCollection']
         collection.insert_one({"latitude": latitude, "longitude": longitude, "city": city, "country": country})
-        db.testCollection.insert({"latitude": latitude, "longitude": longitude, "city": city, "country": country})
     except Exception as e:
         st.markdown(e)
 
