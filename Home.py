@@ -15,13 +15,12 @@ import requests
 from io import BytesIO
 
 # Function to create a postcard
-def create_postcard(data_city):
+def create_postcard(attraction_name):
     getpic = False
     while not getpic:
-        prompt= f'''給我關於{data_city}的一個知名景點，並去unsplash.com/photos回傳我該景點的照片連結
+        prompt= f'''去unsplash.com/photos回傳我{attraction_name}的照片連結
             
                     請按照json格式輸出：
-                    attraction_name: 景點名稱,
                     attraction_link: 照片連結
                   '''
         result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
@@ -176,9 +175,19 @@ if st.button('添加心情'):
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
   data_city = data['city_name']
+    prompt= f'''請根據{data_city}給我一個推薦的景點
+        
+        請按照json格式輸出：
+        attraction_name: 推薦景點
+  '''
+  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+  st.info(result)
+  data = json.loads(result)
+
+
   
   # Create the postcard
-  postcard = create_postcard(data_city)
+  postcard = create_postcard(data['attraction_name'])
   
   # Display the postcard using Streamlit
   st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
