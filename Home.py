@@ -23,7 +23,7 @@ def create_postcard(attraction_name):
                     請按照json格式輸出：
                     attraction_link: 照片連結
                   '''
-        result = get_completion([ {"role": "user", "content": prompt }], model="gpt-4")
+        result = get_completion([ {"role": "user", "content": prompt }], model="gpt-4o")
         st.info(result)
         data = json.loads(result)
         st.info(data['attraction_link'])
