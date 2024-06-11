@@ -17,7 +17,7 @@ from io import BytesIO
 # Function to create a postcard
 def create_postcard(data_city):
     getpic = False
-    while !getpic:
+    while not getpic:
         prompt= f'''去www.tripadvisor.com給我關於{data_city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
             
                     請按照json格式輸出：
