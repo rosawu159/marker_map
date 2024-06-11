@@ -112,7 +112,7 @@ items = get_data()
 df = pd.DataFrame(items)
 st.info(df.head())
 m.add_points_from_xy(
-    cities,
+    df,
     x="longitude",
     y="latitude",
     icon_names=["gear", "map", "leaf", "globe"],
