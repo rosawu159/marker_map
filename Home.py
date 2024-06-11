@@ -19,8 +19,12 @@ def create_postcard():
     # Load the image from the URL
     image_url = "https://images.unsplash.com/photo-1562069403-9b9971a07d68"
     response = requests.get(image_url)
-    image = Image.open(BytesIO(response.content))
-
+    if response.status_code == 200:
+        image = Image.open(BytesIO(response.content))
+    else:
+        st.error("Failed to retrieve image.")
+        return None
+    
     # Resize the image to a postcard size (e.g., 400x400)
     image = image.resize((400, 400))
     image = np.array(image)
