@@ -65,12 +65,30 @@ st.sidebar.info(markdown)
 logo = "https://cdn-icons-png.flaticon.com/512/3286/3286370.png"
 st.sidebar.image(logo)
 
+
+
+
+
+m = init_map()
+cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
+items = get_data()
+df = pd.DataFrame(items)
+st.info(df.head())
+m.add_points_from_xy(
+    df,
+    x="longitude",
+    y="latitude",
+    icon_names=["gear", "map", "leaf", "globe"],
+    spin=True,
+    add_legend=True,
+)
+m.to_streamlit(height=320)
+st.info(df['city'])
+
 # Customize page title
 st.title("跟 者 日 記 旅 遊 去！")
-st.markdown(""" 不管是什麼樣的心情，記錄下來，可以給你對應的旅遊計畫喔～ """)
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
-
 if st.button('添加心情'):
   prompt= f'''請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。
 
@@ -101,22 +119,3 @@ if st.button('添加心情'):
   st.info(data['reason'])
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
-
-m = init_map()
-cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
-#regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
-
-#m.add_geojson(regions, layer_name="US Regions")
-
-items = get_data()
-df = pd.DataFrame(items)
-st.info(df.head())
-m.add_points_from_xy(
-    df,
-    x="longitude",
-    y="latitude",
-    icon_names=["gear", "map", "leaf", "globe"],
-    spin=True,
-    add_legend=True,
-)
-m.to_streamlit(height=320)
