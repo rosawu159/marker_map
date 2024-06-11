@@ -8,7 +8,50 @@ import json
 import requests
 import re
 import pandas as pd
+import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+import requests
+from io import BytesIO
 
+# Function to create a postcard
+def create_postcard():
+    # Load the image from the URL
+    image_url = "https://images.unsplash.com/photo-1562069403-9b9971a07d68"
+    response = requests.get(image_url)
+    image = Image.open(BytesIO(response.content))
+
+    # Resize the image to a postcard size (e.g., 400x400)
+    image = image.resize((400, 400))
+    image = np.array(image)
+
+    # Create a blank white image for the quote
+    quote_image = np.ones((400, 400, 3), dtype=np.uint8) * 255
+
+    # Convert to PIL for text drawing
+    quote_pil = Image.fromarray(quote_image)
+    draw = ImageDraw.Draw(quote_pil)
+
+    # Define the quote and font
+    quote = "Dream big, work hard,\nand make it happen!"
+    font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+    font = ImageFont.truetype(font_path, 24)
+
+    # Calculate text size and position
+    text_width, text_height = draw.textsize(quote, font=font)
+    text_x = (quote_image.shape[1] - text_width) // 2
+    text_y = (quote_image.shape[0] - text_height) // 2
+
+    # Draw the text on the image
+    draw.text((text_x, text_y), quote, fill=(0, 0, 0), font=font)
+
+    # Convert back to OpenCV format
+    quote_image = np.array(quote_pil)
+
+    # Combine the images side by side
+    postcard = np.hstack((image, quote_image))
+
+    return postcard
 
 st.set_page_config(layout="wide")
 API=st.secrets['api_key']
@@ -117,3 +160,22 @@ if st.button('添加心情'):
   st.info(data['reason'])
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
+  city = data['city_name']
+  prompt= f'''去www.tripadvisor.com給我關於{city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
+        
+        請按照json格式輸出：
+        attraction_name: 景點名稱,
+        attraction_link: 景點的照片連結
+  '''
+  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+  st.info(result)
+  data = json.loads(result)
+  st.info(data['attraction_link'])
+  # Create the postcard
+  postcard = create_postcard()
+  
+  # Display the postcard using Streamlit
+  st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
+    
+  
+  
