@@ -101,24 +101,21 @@ if st.button('添加心情'):
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
 
-# 显示地图和所有数据库中的地标
 m = init_map()
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
-regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
+#regions = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_regions.geojson"
 
-m.add_geojson(regions, layer_name="US Regions")
+#m.add_geojson(regions, layer_name="US Regions")
+
+m.to_streamlit(height=320)
+items = get_data()
+df = pd.DataFrame(items)
 m.add_points_from_xy(
-    cities,
+    df,
     x="longitude",
     y="latitude",
-    color_column="region",
     icon_names=["gear", "map", "leaf", "globe"],
     spin=True,
     add_legend=True,
 )
-m.to_streamlit(height=320)
-items = get_data()
-for i in items:
-    st.info(i.get('latitude'))
-    st.info(i)
 
