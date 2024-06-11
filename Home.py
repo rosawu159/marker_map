@@ -68,6 +68,9 @@ st.sidebar.image(logo)
 
 
 
+# Customize page title
+st.title("跟 者 日 記 旅 遊 去！")
+
 
 m = init_map()
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
@@ -83,10 +86,8 @@ m.add_points_from_xy(
     add_legend=True,
 )
 m.to_streamlit(height=320)
-st.info(df['city'])
+st.info(df.get('city'))
 
-# Customize page title
-st.title("跟 者 日 記 旅 遊 去！")
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
 if st.button('添加心情'):
