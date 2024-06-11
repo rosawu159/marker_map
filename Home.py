@@ -15,15 +15,25 @@ import requests
 from io import BytesIO
 
 # Function to create a postcard
-def create_postcard():
-    # Load the image from the URL
-    image_url = "https://images.unsplash.com/photo-1562069403-9b9971a07d68"
-    response = requests.get(image_url)
-    if response.status_code == 200:
-        image = Image.open(BytesIO(response.content))
-    else:
-        st.error("Failed to retrieve image.")
-        return None
+def create_postcard(data_city):
+    getpic = False
+    while !getpic:
+        prompt= f'''去www.tripadvisor.com給我關於{data_city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
+            
+                    請按照json格式輸出：
+                    attraction_name: 景點名稱,
+                    attraction_link: 景點的照片連結
+                  '''
+        result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+        st.info(result)
+        data = json.loads(result)
+        st.info(data['attraction_link'])
+        # Load the image from the URL
+        image_url = data['attraction_link']
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            image = Image.open(BytesIO(response.content))
+            getpic = True
     
     # Resize the image to a postcard size (e.g., 400x400)
     image = image.resize((400, 400))
@@ -166,18 +176,9 @@ if st.button('添加心情'):
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
   data_city = data['city_name']
-  prompt= f'''去www.tripadvisor.com給我關於{data_city}的一個知名景點，選完後去unsplash.com回傳我景點的照片連結
-        
-        請按照json格式輸出：
-        attraction_name: 景點名稱,
-        attraction_link: 景點的照片連結
-  '''
-  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
-  st.info(result)
-  data = json.loads(result)
-  st.info(data['attraction_link'])
+  
   # Create the postcard
-  postcard = create_postcard()
+  postcard = create_postcard(data_city)
   
   # Display the postcard using Streamlit
   st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
