@@ -4,4 +4,4 @@ leafmap
 owslib
 streamlit
 pymongo
-python3-opencv
+opencv-python-headless==4.5.3.56
