@@ -112,6 +112,7 @@ cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/
 m.to_streamlit(height=320)
 items = get_data()
 df = pd.DataFrame(items)
+st.info(df.head())
 m.add_points_from_xy(
     df,
     x="longitude",
