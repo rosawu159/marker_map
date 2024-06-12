@@ -171,7 +171,6 @@ if st.button('添加心情'):
   st.info(result)
   data = json.loads(result)
 
-  st.info(data['city_name'])
   st.info(data['comfort_and_encouragement'])
   st.info(data['reason'])
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
