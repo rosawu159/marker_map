@@ -25,7 +25,6 @@ def create_postcard(attraction_name, quote):
         t_url = 'https://api.unsplash.com/search/photos?page=1&query=Parc-Guell&client_id=' + st.secrets['client_id']
         response = requests.get(t_url)
         json_data = response.json()
-        st.info(json_data['results'][0]['urls']['raw'])
         if response.status_code == 200:
             p_url = json_data['results'][0]['urls']['raw']
             response = requests.get(p_url)
@@ -49,7 +48,7 @@ def create_postcard(attraction_name, quote):
 
     # Wrap the text
     margin = 10
-    max_width = 380  # Width of the quote image minus margins
+    max_width = 200  # Width of the quote image minus margins
     wrapped_text = textwrap.fill(quote, width=40)
 
     # Calculate text size and position
