@@ -107,6 +107,15 @@ def init_map():
     m = leafmap.Map(center=[40, -100], zoom=4)
     return m
 
+# Function to save the image to MongoDB
+def save_to_mongodb(image):
+    is_success, buffer = cv2.imencode(".jpg", image)
+    if is_success:
+        fs.put(buffer.tobytes(), filename="postcard.jpg")
+        st.success("Image saved to MongoDB.")
+    else:
+        st.error("Failed to encode the image.")
+
 
 # Customize the sidebar
 markdown = """ This is a travel daily. """
@@ -138,8 +147,6 @@ m.add_points_from_xy(
 )
 m.to_streamlit(height=320)
 cities = df.get('city')
-st.info(cities)
-
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
 if st.button('添加心情'):
@@ -176,16 +183,18 @@ if st.button('添加心情'):
         attraction_name: 推薦景點
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
-  st.info(result)
   data = json.loads(result)
 
-
-  
   # Create the postcard
   postcard = create_postcard(data['attraction_name'])
   
   # Display the postcard using Streamlit
   st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
     
-  
+  # Display the postcard using Streamlit
+  if postcard is not None:
+      st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
+      save_button = st.button("Save to MongoDB")
+      if save_button:
+          save_to_mongodb(postcard)
   
