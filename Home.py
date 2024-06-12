@@ -20,8 +20,9 @@ def create_postcard(attraction_name):
     while not getpic:
         
         # Load the image from the URL
-        t_url = 'https://images.unsplash.com/photo-1629793815862-723ed95c2363?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=M3w2MjE2NDR8MHwxfHNlYXJjaHwxfHxQYXJjLUd1ZWxsfGVufDB8fHx8MTcxODEzOTIyNnww\u0026ixlib=rb-4.0.3\u0026q=85'
+        t_url = 'https://api.unsplash.com/search/photos?page=1&query=Parc-Guell&client_id=' + st.secrets['client_id']
         response = requests.get(t_url)
+        st.info(response)
         if response.status_code == 200:
             image = Image.open(BytesIO(response.content))
             getpic = True
