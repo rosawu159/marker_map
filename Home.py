@@ -190,11 +190,8 @@ if st.button('添加心情'):
   postcard = create_postcard(data['attraction_name'])
   
   # Display the postcard using Streamlit
-  st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
-    
-  # Display the postcard using Streamlit
   if postcard is not None:
-      st.image(postcard, caption="Postcard with Louvre Museum and Inspirational Quote", use_column_width=True)
+      st.image(postcard, caption="Postcard with Inspirational Quote", use_column_width=True)
       save_button = st.button("Save to MongoDB")
       if save_button:
           save_to_mongodb(postcard)
