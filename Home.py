@@ -15,7 +15,7 @@ import requests
 from io import BytesIO
 
 # Function to create a postcard
-def create_postcard(attraction_name):
+def create_postcard(attraction_name, quote):
     getpic = False
     while not getpic:
         
@@ -42,7 +42,6 @@ def create_postcard(attraction_name):
     draw = ImageDraw.Draw(quote_pil)
 
     # Define the quote and font
-    quote = "Dream big, work hard,\nand make it happen!"
     font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     font = ImageFont.truetype(font_path, 24)
 
@@ -187,7 +186,7 @@ if st.button('添加心情'):
   data = json.loads(result)
 
   # Create the postcard
-  postcard = create_postcard(data['attraction_name'])
+  postcard = create_postcard(data['attraction_name'], data['reason'])
   
   # Display the postcard using Streamlit
   if postcard is not None:
