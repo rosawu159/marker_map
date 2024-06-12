@@ -172,8 +172,7 @@ if st.button('添加心情'):
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
   data = json.loads(result)
 
-  st.info(data['comfort_and_encouragement'])
-  st.info(data['reason'])
+  comfort = data['comfort_and_encouragement']
   add_landmark_to_db(data['latitude'], data['longitude'], data['city_name'], data['country_name'])
   st.success('地標和心情已保存！')
   data_city = data['city_name']
@@ -186,7 +185,7 @@ if st.button('添加心情'):
   data = json.loads(result)
 
   # Create the postcard
-  postcard = create_postcard(data['attraction_name'], data['reason'])
+  postcard = create_postcard(data['attraction_name'], comfort)
   
   # Display the postcard using Streamlit
   if postcard is not None:
