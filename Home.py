@@ -45,15 +45,20 @@ def create_postcard(attraction_name, quote):
     font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     font = ImageFont.truetype(font_path, 24)
 
+    # Wrap the text
+    margin = 10
+    max_width = 380  # Width of the quote image minus margins
+    wrapped_text = textwrap.fill(quote, width=40)
+
     # Calculate text size and position
-    text_bbox = draw.textbbox((0, 0), quote, font=font)
+    text_bbox = draw.textbbox((margin, margin), wrapped_text, font=font)
     text_width = text_bbox[2] - text_bbox[0]
     text_height = text_bbox[3] - text_bbox[1]
     text_x = (quote_image.shape[1] - text_width) // 2
     text_y = (quote_image.shape[0] - text_height) // 2
 
     # Draw the text on the image
-    draw.text((text_x, text_y), quote, fill=(0, 0, 0), font=font)
+    draw.text((text_x, text_y), wrapped_text, fill=(0, 0, 0), font=font)
 
     # Convert back to OpenCV format
     quote_image = np.array(quote_pil)
