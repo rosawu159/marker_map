@@ -13,6 +13,8 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import requests
 from io import BytesIO
+import textwrap
+
 
 # Function to create a postcard
 def create_postcard(attraction_name, quote):
