@@ -136,7 +136,6 @@ m = init_map()
 cities = "https://raw.githubusercontent.com/giswqs/leafmap/master/examples/data/us_cities.csv"
 items = get_data()
 df = pd.DataFrame(items)
-st.info(df.head())
 m.add_points_from_xy(
     df,
     x="longitude",
@@ -168,7 +167,6 @@ if st.button('添加心情'):
         reason: 這個城市的推薦原因
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
-  st.info(result)
   data = json.loads(result)
 
   st.info(data['comfort_and_encouragement'])
