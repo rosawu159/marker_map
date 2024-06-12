@@ -25,6 +25,8 @@ def create_postcard(attraction_name):
         json_data = response.json()
         st.info(json_data['results'][0]['urls']['raw'])
         if response.status_code == 200:
+            p_url = json_data['results'][0]['urls']['raw']
+            response = requests.get(p_url)
             image = Image.open(BytesIO(response.content))
             getpic = True
     
