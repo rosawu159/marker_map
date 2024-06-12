@@ -20,7 +20,6 @@ import textwrap
 def create_postcard(attraction_name, quote):
     getpic = False
     while not getpic:
-        
         # Load the image from the URL
         t_url = 'https://api.unsplash.com/search/photos?page=1&query='+ attraction_name +'&client_id=' + st.secrets['client_id']
         response = requests.get(t_url)
@@ -78,7 +77,6 @@ def get_completion(messages, model="gpt-3.5-turbo", temperature=0, max_tokens=10
   headers = { "Authorization": f'Bearer {API}', "Content-Type": "application/json" }
   response = requests.post('https://api.openai.com/v1/chat/completions', headers = headers, data = json.dumps(payload) )
   obj = json.loads(response.text)
-  st.info(obj["choices"][0]["message"]["content"])
   if response.status_code == 200 :
     return obj["choices"][0]["message"]["content"]
   else :
