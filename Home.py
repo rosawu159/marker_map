@@ -172,8 +172,8 @@ if st.button('添加心情'):
         comfort_and_encouragement: 你的安慰和鼓勵文字,
         city_name: 推薦的旅遊城市,
         country_name: "這個城市的國家,
-        latitude: 這個城市的經度,
-        longitude: 這個城市的緯度,
+        latitude: 這個城市的經度數字,
+        longitude: 這個城市的緯度數字,
         reason: 這個城市的推薦原因
   '''
   result = get_completion([ {"role": "user", "content": prompt }], model="gpt-4")
