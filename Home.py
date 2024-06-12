@@ -49,7 +49,7 @@ def create_postcard(attraction_name, quote):
     # Wrap the text
     margin = 10
     max_width = 120  # Width of the quote image minus margins
-    wrapped_text = textwrap.fill(quote, width=40)
+    wrapped_text = textwrap.fill(quote, width=20)
 
     # Calculate text size and position
     text_bbox = draw.textbbox((margin, margin), wrapped_text, font=font)
