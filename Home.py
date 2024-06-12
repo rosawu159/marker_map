@@ -48,7 +48,7 @@ def create_postcard(attraction_name, quote):
 
     # Wrap the text
     margin = 10
-    max_width = 200  # Width of the quote image minus margins
+    max_width = 120  # Width of the quote image minus margins
     wrapped_text = textwrap.fill(quote, width=40)
 
     # Calculate text size and position
@@ -159,7 +159,7 @@ cities = df.get('city')
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
 if st.button('添加心情'):
-  prompt= f'''全都用英文回覆，請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。以下是不要重複出現的城市：{cities}
+  prompt= f'''全都用英文回覆，請根據以下的日記內容，生成一段50字以內具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。以下是不要重複出現的城市：{cities}
 
         日記內容：
         {mood}
