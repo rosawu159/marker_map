@@ -160,7 +160,7 @@ cities = df.get('city')
 st.markdown(""" 1. 寫下自己的心情，會幫你選一個國家並給你推薦的旅遊計畫 """)
 mood = st.text_area('請描述你的心情')
 if st.button('添加心情'):
-  prompt= f'''請根據以下的日記內容，用英文生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。以下是不要重複出現的城市：{cities}
+  prompt= f'''全都用英文回覆，請根據以下的日記內容，生成一段具有安慰和鼓勵性的文字，並提供一個適合的旅遊推薦。以下是不要重複出現的城市：{cities}
 
         日記內容：
         {mood}
@@ -177,7 +177,7 @@ if st.button('添加心情'):
         longitude: 這個城市的緯度,
         reason: 這個城市的推薦原因
   '''
-  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-3.5-turbo")
+  result = get_completion([ {"role": "user", "content": prompt }], model="gpt-4")
   data = json.loads(result)
 
   comfort = data['comfort_and_encouragement']
